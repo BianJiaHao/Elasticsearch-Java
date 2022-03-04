@@ -3,6 +3,8 @@ package com.bianjiahao.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -13,6 +15,8 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DruidConfig {
+    private static final Logger logger = LogManager.getLogger("DruidConfig");
+
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource getDataSource() {
@@ -21,6 +25,7 @@ public class DruidConfig {
 
     @Bean
     public ServletRegistrationBean druidStatViewServlet() {
+
         //ServletRegistrationBean提供类的进行注册
         ServletRegistrationBean servletRegistrationBean =
                 new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
